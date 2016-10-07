@@ -9,10 +9,12 @@ var handlebars  = require('express-handlebars');
 var request = require('request-json');
 
 // Configuration parameters
-var options = {
-    host: "localhost",
-    port: 32600,
-};
+var indexsvc_env = {
+    host : process.env.INDEXSVC_PORT_3000_TCP_ADDR || "localhost", 
+    port : process.env.INDEXSVC_PORT_3000_TCP_PORT || 32600 };
+var blobsvc_env = {
+    host : process.env.BLOBSVC_PORT_3000_TCP_ADDR || "localhost", 
+    port : process.env.BLOBSVC_PORT_3000_TCP_PORT || 32600 };
 
 app.engine('.hbs', handlebars());
 
@@ -28,32 +30,13 @@ app.get('/handlebars', function(req, res) {
 });
 
 app.get('/search', function (req, res) {
-    //options.path = options.path.concat(req.params.query);
-    //options.path = "/find/text";
     console.log(req.query.searchstring);
-    var client = request.createClient('http://' + options.host + ':' + options.port + '/');
+    var client = request.createClient('http://' + indexsvc_env.host + ':' + indexsvc_env.port + '/');
     client.get('find/' + req.query.searchstring , function(err, svcres, body) {
         console.log(body);
         var json = {"records" : body};
         res.render(path.join(__dirname, 'views/test.hbs'), json);
     });
-    /*
-    http.request(options, function (svcresponse) {
-        console.log('STATUS: ' + svcresponse.statusCode);
-        console.log('HEADERS: ' + JSON.stringify(svcresponse.headers));
-        svcresponse.setEncoding('utf8');
-        svcresponse.on('data', function (chunk) {
-            var json = {"records" : chunk};
-            res.render(path.join(__dirname, 'views/test.hbs'), json);
-            //res.send(chunk);
-            console.log('BODY: ' + chunk);
-        });
-        svcresponse.on('end', function() {
-            console.log("END");
-            res.end();
-        })
-    }).end();
-    */
 });
 
 app.get('/upload', function (req, res) {
