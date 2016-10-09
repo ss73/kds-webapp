@@ -14,7 +14,7 @@ var indexsvc_env = {
     port : process.env.INDEXSVC_PORT_3000_TCP_PORT || 32600 };
 var blobsvc_env = {
     host : process.env.BLOBSVC_PORT_3000_TCP_ADDR || "localhost", 
-    port : process.env.BLOBSVC_PORT_3000_TCP_PORT || 32600 };
+    port : process.env.BLOBSVC_PORT_3000_TCP_PORT || 32500 };
 
 app.engine('.hbs', handlebars());
 
