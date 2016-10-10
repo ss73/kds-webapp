@@ -10,11 +10,11 @@ var request = require('request-json');
 
 // Configuration parameters
 var indexsvc_env = {
-    host : process.env.INDEXSVC_PORT_3000_TCP_ADDR || "localhost", 
-    port : process.env.INDEXSVC_PORT_3000_TCP_PORT || 32600 };
+    host : process.env.INDEXSVC_PORT_32600_TCP_ADDR || "localhost", 
+    port : process.env.INDEXSVC_PORT_32600_TCP_PORT || 32600 };
 var blobsvc_env = {
-    host : process.env.BLOBSVC_PORT_3000_TCP_ADDR || "localhost", 
-    port : process.env.BLOBSVC_PORT_3000_TCP_PORT || 32500 };
+    host : process.env.BLOBSVC_PORT_32500_TCP_ADDR || "localhost", 
+    port : process.env.BLOBSVC_PORT_32500_TCP_PORT || 32500 };
 
 app.engine('.hbs', handlebars());
 
