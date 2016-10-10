@@ -35,7 +35,7 @@ app.get('/search', function (req, res) {
     client.get('find/' + req.query.searchstring , function(err, svcres, body) {
         console.log(body);
         var json = {"records" : body};
-        res.render(path.join(__dirname, 'views/test.hbs'), json);
+        res.render(path.join(__dirname, 'views/searchresult.hbs'), json);
     });
 });
 
