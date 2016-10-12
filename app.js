@@ -4,9 +4,9 @@ var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
 var util = require('util');
-//var http = require('http');
 var handlebars  = require('express-handlebars');
 var request = require('request-json');
+var httprequest = require('request');
 
 // Configuration parameters
 var indexsvc_env = {
@@ -37,6 +37,13 @@ app.get('/search', function (req, res) {
         var json = {"records" : body};
         res.render(path.join(__dirname, 'views/searchresult.hbs'), json);
     });
+});
+
+app.get('/show/:id', function(req, res) {
+    var bloburl = 'http://' + blobsvc_env.host + ':' + blobsvc_env.port + '/retrieve/' + req.params.id;
+    httprequest
+        .get(bloburl)
+        .pipe(res);
 });
 
 app.get('/upload', function (req, res) {
