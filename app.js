@@ -54,7 +54,10 @@ app.get('/service/uploads', function (req, res) {
     var uploadDir = path.join(__dirname, '/uploads');
     var uploadslist;
     fs.readdir(uploadDir, function (err, items) {
-        //console.log(items);
+        if(err) {
+            console.log(err);
+            return res.send();
+        }
         var result = [];
         for (var i in items) {
             var stats = fs.statSync(path.join(__dirname, 'uploads', items[i]));
