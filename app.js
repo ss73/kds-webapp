@@ -16,6 +16,12 @@ var blobsvc_env = {
     host : process.env.BLOBSVC_PORT_32500_TCP_ADDR || "localhost", 
     port : process.env.BLOBSVC_PORT_32500_TCP_PORT || 32500 };
 
+// Make sure uploads directory exists
+var uploadDir = path.join(__dirname, '/uploads');
+if (!fs.existsSync(uploadDir)){
+    fs.mkdirSync(uploadDir);
+}
+
 app.engine('.hbs', handlebars());
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -113,7 +119,6 @@ app.get('/service/cleanup/:timestamp', function (req, res) {
 
 app.post('/upload', function (req, res) {
 
-    //console.log(req);
     // create an incoming form object
     var form = new formidable.IncomingForm();
 
@@ -121,7 +126,7 @@ app.post('/upload', function (req, res) {
     form.multiples = true;
 
     // store all uploads in the /uploads directory
-    form.uploadDir = path.join(__dirname, '/uploads');
+    form.uploadDir = uploadDir;
 
     // every time a file has been uploaded successfully,
     // rename it to it's orignal name
