@@ -97,7 +97,7 @@ app.get('/service/cleanup/:timestamp', function (req, res) {
     fs.readdir(uploadDir, function (err, items) {
         if(err) {
             console.log(err);
-            res.send();
+            return res.send();
         }
         for (var i in items) {
             var stats = fs.statSync(path.join(__dirname, 'uploads', items[i]));
