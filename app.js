@@ -55,7 +55,7 @@ app.get('/service/uploads', function (req, res) {
     var uploadslist;
     fs.readdir(uploadDir, function (err, items) {
         if(err) {
-            console.log(err);
+            console.log("Get uploads: " + err);
             return res.send();
         }
         var result = [];
@@ -96,7 +96,7 @@ app.get('/service/cleanup/:timestamp', function (req, res) {
     console.log("Deleting files older than: " + beforetime);
     fs.readdir(uploadDir, function (err, items) {
         if(err) {
-            console.log(err);
+            console.log("Cleanup: " + err);
             return res.send();
         }
         for (var i in items) {
