@@ -95,6 +95,10 @@ app.get('/service/cleanup/:timestamp', function (req, res) {
     var beforetime = new Date(req.params.timestamp);
     console.log("Deleting files older than: " + beforetime);
     fs.readdir(uploadDir, function (err, items) {
+        if(err) {
+            console.log(err);
+            res.send();
+        }
         for (var i in items) {
             var stats = fs.statSync(path.join(__dirname, 'uploads', items[i]));
             var ctime = new Date(util.inspect(stats.ctime));
